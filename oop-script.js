@@ -138,13 +138,13 @@ class SingleActorPage {
 
             const moviesCast = movieCredits.moviesInCast.map(movie => `
             <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
-              <img class="img-fluid" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}">
+              <img class="img-fluid" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
               <h6>${movie.title} as <em>${movie.character}</em></h6>
             </div>`).join(" ");
 
             const moviesCrew = movieCredits.moviesInCrew.map(movie => `
             <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
-            <img class="img-fluid" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}">
+            <img class="img-fluid" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
             <h5>${movie.title} as <em>${movie.job}</em></h5>
            </div>`).join(" ");
             
@@ -176,6 +176,14 @@ class SingleActorPage {
     </div>`
             
             
+        }
+
+        static async funct(e)
+        {
+            console.log(e)
+            Movies.run({id:e})
+            console.log('hi')
+
         }
     }
 
