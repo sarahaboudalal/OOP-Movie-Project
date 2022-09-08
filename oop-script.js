@@ -75,8 +75,36 @@ class APIService {
         return new MovieCredits(data);
       }
 
+    static async fetchMovieSearchResultsforMovie(search) {
+        const searchString = search.trim().toUpperCase()
+        const url = APIService._constructUrlForSearch(
+            `search/movie`,
+            `${searchString}`
+        )
+        const response = await fetch(url)
+        const data = await response.json()
+        console.log(data)
+        return data.results.map((movie) => new Movie(movie))
+    }
+    static async fetchMovieSearchResultsforActors(search) {
+        const searchString = search.trim().toUpperCase()
+        const url = APIService._constructUrlForSearch(
+            `search/person`,
+            `${searchString}`
+        )
+        const response = await fetch(url)
+        const data = await response.json()
+        console.log(data) //.results[0].known_for[0].overview
+        return data.results.map((actor) => new SingleActor(actor))
+    }
+
     static _constructUrl(path) {
         return `${this.TMDB_BASE_URL}/${path}?api_key=${atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI=')}`;
+    }
+    static _constructUrlForSearch(path, search) {
+        return `${this.TMDB_BASE_URL}/${path}?api_key=${atob(
+      'NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='
+    )}&language=en-US&query=${search}&page=1&include_adult=false`
     }
 }
 
@@ -449,6 +477,58 @@ class renderSimilar{
         MoviePage.container.append(relatedMoviesConatainer)
     }
 }
+
+
+class SearchPage {
+    static async run(input) {
+        const movie = await APIService.fetchMovieSearchResultsforMovie(input)
+        const actor = await APIService.fetchMovieSearchResultsforActors(input)
+        let mov, person
+        // const container = document.getElementById('container')
+        if (movie.length === 0) {
+            mov = `<h3>Please Write a movie or actor</h3>`
+        }
+        if (document.getElementById('container').innerHTML !== '') {
+            document.getElementById('container').innerHTML == ' '
+
+            mov = movie
+                .map(
+                    (
+                        movie
+                    ) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
+            <img class= "img-fluid actorListPageImg"  src="${movie.posterUrl}"/>
+            ${movie.title} </div>`
+                )
+                .join('')
+        }
+        if (actor.length === 0) {
+            person = '<h4>Unfortunately, no such people found.</h4>'
+        }
+        if (true) {
+            person = actor
+                .map(
+                    (
+                        actor
+                    ) => `<div class="actorListPageActor text-center col-lg-2 col-md-3 col-sm-4 col-6">
+            <img class= "img-fluid actorListPageImg"   src='${actor.actorsProfileUrl()}'/>
+            ${actor.name}</div>`
+                )
+                .join('')
+        }
+        container.innerHTML = `
+    <h2 class="text-center">Movie Results</h2>
+    <div class="row  ">${mov}</div>
+     <h2 class="text-center">Actors Results</h2>
+    <div class="row searchResults">${person}</div>`
+    }
+}
+
+const submit = document.querySelector('#submit')
+submit.addEventListener('click', (e) => {
+    e.preventDefault()
+    const search = document.querySelector('#search').value
+    SearchPage.run(search)
+})
 
 
 
