@@ -2,10 +2,146 @@
     width: 100%;
 }
 
-.container {
+#container {
+    background: #c2e59c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding-top: 32px;
 }
 
 #actors {
     margin: 24px 16px 0 0;
 }
+
+img{
+    border: solid 1px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+#movie-backdrop{
+   align-self: baseline;
+}
+
+img#logo{
+    width: 15%;
+    border: none;
+    box-shadow: none;
+    border-radius: 0%;
+}
+
+.bi-github {
+    color: black;
+  }
+
+  .movieCrew {
+    /* background-color: red; */
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    }
+    
+    .movieCrew > *{
+        background-color: rgb(232, 107, 128);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 150px;
+    }
+    .movieCrew > * > img {
+        width:100%; 
+        display: inline-block;
+    }
+    
+    .videoSection {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        flex-direction: column;
+    }
+    .videoSection > iframe {
+        width: 800px;
+        height: 450px;
+    }
+    
+    .companies{
+        display: flex; 
+        
+        flex-wrap: wrap;
+        align-items: stretch;
+    
+    
+        color: white;
+        gap: 10px;
+    }
+    
+    .companies > * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: stretch;
+    
+        width: 300px;
+       
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.299);
+        color: white;
+    }
+    
+    .companies > * > img {
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+    }
+    
+    .companies > * > h3 {
+        width: 100%;
+        text-align: center;
+        background-color: black;
+        font-size: medium;
+        padding: 10px;
+        font-weight: bold;
+    }
+    
+    .relatedMoviesContainer {
+        background-color: rgba(0, 0, 0, 0.138);
+        
+    }
+    
+    .relatedMoviesContainer > h2 {
+        text-align: center;
+        
+    }
+    
+    .relatedMoviesContainer > div {
+    
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around;
+        padding: 20px 0px;
+    }
+    
+    .relatedMoviesContainer >div >div
+    {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        
+        
+        width: 240px;
+    }
+    .relatedMoviesContainer >div >div> img
+    {
+        width: 100%;
+    }
+    
+    .relatedMoviesContainer >div >div> span
+    {
+        background-color: black;
+        color: white;   
+        width: 100%;
+        text-align: center;
+        font-size: small;
+    }
