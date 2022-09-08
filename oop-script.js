@@ -154,6 +154,7 @@ class SingleActorPage {
             if (container.innerText !== '') {
                 container.innerText = ''
             }
+            console.log(actorId)
             const singleActorData = await APIService.fetchSingleActor(actorId)
             const movieCredits = await APIService.fetchActorCredit(actorId)
             SingleActorPage.renderActor(singleActorData, movieCredits)
@@ -392,6 +393,10 @@ class RenderMovieActors {
         let crewImage = document.createElement('img')
         let crewName = document.createElement('span')
         
+        crewImage.addEventListener('click',()=>{
+            SingleActorPage.run(crew.id)
+        })
+
         crewName.innerHTML = `${crew.name}`
         crewImage.src = `${this.IMAGE_URL}${crew.profile_path}`
         crewDiv.append(crewImage)
@@ -496,7 +501,7 @@ class SearchPage {
                     (
                         movie
                     ) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
-            <img class= "img-fluid actorListPageImg"  src="${movie.posterUrl}"/>
+            <img class= "img-fluid actorListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
             ${movie.title} </div>`
                 )
                 .join('')
@@ -510,7 +515,7 @@ class SearchPage {
                     (
                         actor
                     ) => `<div class="actorListPageActor text-center col-lg-2 col-md-3 col-sm-4 col-6">
-            <img class= "img-fluid actorListPageImg"   src='${actor.actorsProfileUrl()}'/>
+            <img class= "img-fluid actorListPageImg" src='${actor.actorsProfileUrl()}' onclick="SearchPage.actorFunct(${actor.id})"/>
             ${actor.name}</div>`
                 )
                 .join('')
@@ -520,6 +525,16 @@ class SearchPage {
     <div class="row  ">${mov}</div>
      <h2 class="text-center">Actors Results</h2>
     <div class="row searchResults">${person}</div>`
+    }
+
+    static async movieFunct(e)
+    {
+        Movies.run({id:e})
+    }
+    static async actorFunct(e)
+    {
+        console.log(e)
+        SingleActorPage.run(e)
     }
 }
 
