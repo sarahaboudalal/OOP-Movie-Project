@@ -6,6 +6,9 @@
 
 .clickable:hover {
     cursor:pointer;
+    box-shadow:  0px 1px 20px  rgb(38, 196, 180);
+    transition: all 0.5s;
+    /* padding-bottom:2px ; */
 }
 
 #movie-backdrop {
@@ -105,18 +108,32 @@ img#logo{
 
 .singleMovieInfo{
    display: flex;
+   padding: 20px 0px;
 }  
 
 .singleMovieImageDiv{
     width: 400px;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 5px solid rgba(22, 111, 171, 0.378);
+    
 }
 .singleMovieImageDiv > img{
     width: 100%;
+    
 }
 
 .movieSectionDiv{
  width:800px;
  padding : 0px 30px;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ color: white;
+}
+
+.movieSectionDiv > *{
+  
 }
 
 .crewContainer {
@@ -247,9 +264,7 @@ padding-top: 5px;
 
 
 .relatedMoviesContainer {
-
     width: 100%;
-    
 }
 
 .relatedMoviesContainer > h2 {
@@ -293,10 +308,31 @@ padding-top: 5px;
     text-align: center;
     font-size: small;
     padding: 5px 0px;
+    height: 100%;
 }
 
 .footer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 350px 350px 350px 350px;
     grid-column: 1fr 1fr;
+    justify-content: center;
+}
+.footer> p{
+    grid-column: 1/5 ;
+    grid-row: 1/2;
+    text-align: center;
+}
+.footer >p> strong{
+    padding: 5px;
+    
+}
+
+.footer >h4 {
+    width: 100%;
+}
+
+.footer > h4 >strong {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

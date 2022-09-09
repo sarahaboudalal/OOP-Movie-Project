@@ -326,8 +326,8 @@ class MovieSection {
           <h2 id="movie-title">${movie.title}</h2>
           <p class="lead" id="genres"><strong>Genre: ${movie.genres.map(genre=>genre.name).join(", ")}</strong></p>
           <p class="lead" id="languages"><strong> Language: ${movie.language.map(e=>{return e.english_name})} </strong></p>
-          <p id="voteCount"> Number of Rates:  ${movie.voteCount} </p>
-          <p id="voteaAerage"> Rating: ${movie.voteAverage} </p>
+          <p class="lead" id="voteCount"> <strong>Number of Rates:  ${movie.voteCount} </strong></p>
+          <p class="lead" id="voteaAerage"> <strong>Rating: ${movie.voteAverage} </strong></p>
           <p class="lead" id="movie-release-date"><strong>Release Date: ${movie.releaseDate}</strong></p>
           <p class="lead" id="movie-runtime"><strong>Run Time: ${movie.runtime}</strong></p>
           <h3>Overview:</h3>
@@ -482,11 +482,11 @@ class renderSimilar{
             if (index < 5)
             {
             let movieDiv = document.createElement('div')
-            movieDiv.addEventListener('click',()=> {
-                Movies.run(movie)
-            })
             let moviePhoto = document.createElement('img')
             moviePhoto.className = "clickable"
+            moviePhoto.addEventListener('click',()=> {
+                Movies.run(movie)
+            })
             let movieName = document.createElement('span')
             
             moviePhoto.src=`${this.IMG_URL}${movie.poster_path}`
