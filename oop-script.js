@@ -269,10 +269,10 @@ class HomePage {
         movies.forEach(movie => {
             console.log(movie)
             const movieDiv = document.createElement("div");
-            movieDiv.setAttribute("class", "singleHomePageMovie col-lg-4 col-md-2 col-sm-1 col-1")
+            movieDiv.setAttribute("class", "singleHomePageMovie col-md-4 col-sm-6")
             const movieImage = document.createElement("img");
             movieImage.title = movie.overview;
-            movieImage.setAttribute("class", "clickable")
+            movieImage.setAttribute("class", "image-fluid clickable")
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
             movieTitle.setAttribute("class", "text-center")
