@@ -131,7 +131,7 @@ class ActorsPage {
                 'col-lg-2 col-md-3 col-sm-4 col-6'
                 )
                 const actorImage = document.createElement('img')
-                actorImage.setAttribute('class', 'img-fluid')
+                actorImage.setAttribute('class', 'img-fluid clickable')
                 actorImage.src = `${actor.actorsProfileUrl()}`
                 
                 const actorTitle = document.createElement('h3')
@@ -167,13 +167,13 @@ class SingleActorPage {
 
             const moviesCast = movieCredits.moviesInCast.map(movie => `
             <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
-              <img class="img-fluid" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
+              <img class="img-fluid clickable" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
               <h6>${movie.title} as <em>${movie.character}</em></h6>
             </div>`).join(" ");
 
             const moviesCrew = movieCredits.moviesInCrew.map(movie => `
             <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
-            <img class="img-fluid" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
+            <img class="img-fluid clickable" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
             <h5>${movie.title} as <em>${movie.job}</em></h5>
            </div>`).join(" ");
             
@@ -268,7 +268,7 @@ class HomePage {
             const movieDiv = document.createElement("div");
             movieDiv.setAttribute("class", "col-md-4 col-sm-6")
             const movieImage = document.createElement("img");
-            movieImage.setAttribute("class", "img-fluid")
+            movieImage.setAttribute("class", "img-fluid clickable")
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
             movieTitle.setAttribute("class", "text-center")
@@ -392,6 +392,7 @@ class RenderMovieActors {
         let crewDiv = document.createElement('div')
         let crewImage = document.createElement('img')
         let crewName = document.createElement('span')
+        crewImage.className= "clickable"
         
         crewImage.addEventListener('click',()=>{
             SingleActorPage.run(crew.id)
@@ -468,6 +469,7 @@ class renderSimilar{
                 Movies.run(movie)
             })
             let moviePhoto = document.createElement('img')
+            moviePhoto.className = "clickable"
             let movieName = document.createElement('span')
             
             moviePhoto.src=`${this.IMG_URL}${movie.poster_path}`
@@ -501,7 +503,7 @@ class SearchPage {
                     (
                         movie
                     ) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
-            <img class= "img-fluid actorListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
+            <img class= "img-fluid clickable actorListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
             ${movie.title} </div>`
                 )
                 .join('')
@@ -515,7 +517,7 @@ class SearchPage {
                     (
                         actor
                     ) => `<div class="actorListPageActor text-center col-lg-2 col-md-3 col-sm-4 col-6">
-            <img class= "img-fluid actorListPageImg" src='${actor.actorsProfileUrl()}' onclick="SearchPage.actorFunct(${actor.id})"/>
+            <img class= "img-fluid clickable actorListPageImg" src='${actor.actorsProfileUrl()}' onclick="SearchPage.actorFunct(${actor.id})"/>
             ${actor.name}</div>`
                 )
                 .join('')

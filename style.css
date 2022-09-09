@@ -145,3 +145,8 @@ img#logo{
         text-align: center;
         font-size: small;
     }
+
+
+    .clickable:hover {
+        cursor:pointer;
+    }
