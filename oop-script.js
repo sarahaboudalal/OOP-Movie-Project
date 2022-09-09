@@ -259,17 +259,20 @@ class SingleActor {
 
 class HomePage {
     static container = document.getElementById('container');
+    static movieContainer = document.createElement('div');
     static renderMovies(movies) {
         if (container.innerText !== "") {
             container.innerText = "";
           }
+          this.movieContainer.classList="row homePageMovies"
+          this.container.append(this.movieContainer)
         movies.forEach(movie => {
             console.log(movie)
             const movieDiv = document.createElement("div");
-            movieDiv.setAttribute("class", "col-md-4 col-sm-6")
+            movieDiv.setAttribute("class", "singleHomePageMovie col-lg-4 col-md-2 col-sm-1 col-1")
             const movieImage = document.createElement("img");
             movieImage.title = movie.overview;
-            movieImage.setAttribute("class", "img-fluid clickable")
+            movieImage.setAttribute("class", "clickable")
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
             movieTitle.setAttribute("class", "text-center")
@@ -284,7 +287,7 @@ class HomePage {
             movieDiv.appendChild(movieImage);
             movieDiv.appendChild(movieTitle);
             movieDiv.appendChild(movieRating);
-            this.container.appendChild(movieDiv);
+            this.movieContainer.appendChild(movieDiv);
         })
     }
     
@@ -501,12 +504,8 @@ class SearchPage {
         }
         if (document.getElementById('container').innerHTML !== '') {
             document.getElementById('container').innerHTML == ' '
-
-            mov = movie
-                .map(
-                    (
-                        movie
-                    ) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
+            
+            mov = movie.map((movie) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
             <img class= "img-fluid clickable actorListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
             ${movie.title} </div>`
                 )
