@@ -264,15 +264,18 @@ class HomePage {
             container.innerText = "";
           }
         movies.forEach(movie => {
-           
+            console.log(movie)
             const movieDiv = document.createElement("div");
             movieDiv.setAttribute("class", "col-md-4 col-sm-6")
             const movieImage = document.createElement("img");
+            movieImage.title = movie.overview;
             movieImage.setAttribute("class", "img-fluid clickable")
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
             movieTitle.setAttribute("class", "text-center")
             movieTitle.textContent = `${movie.title}`;
+            const movieRating = document.createElement("span");
+            movieRating.textContent = `Rating: ${movie.voteAverage}`;
             movieImage.addEventListener("click", function() {
                 Movies.run(movie);
                 
@@ -280,6 +283,7 @@ class HomePage {
 
             movieDiv.appendChild(movieImage);
             movieDiv.appendChild(movieTitle);
+            movieDiv.appendChild(movieRating);
             this.container.appendChild(movieDiv);
         })
     }
