@@ -261,21 +261,22 @@ class HomePage {
     static container = document.getElementById('container');
     static movieContainer = document.createElement('div');
     static renderMovies(movies) {
+        this.movieContainer.innerHTML = " "
         if (container.innerText !== "") {
             container.innerText = "";
           }
-          this.movieContainer.classList="row homePageMovies"
+          this.movieContainer.classList="homePageMovies"
           this.container.append(this.movieContainer)
         movies.forEach(movie => {
-            console.log(movie)
+            const movieDiscriptionDiv = document.createElement('div');
             const movieDiv = document.createElement("div");
-            movieDiv.setAttribute("class", "singleHomePageMovie col-md-4 col-sm-6")
+            movieDiv.setAttribute("class", "singleHomePageMovie ")
             const movieImage = document.createElement("img");
             movieImage.title = movie.overview;
             movieImage.setAttribute("class", "image-fluid clickable")
             movieImage.src = `${movie.backdropUrl}`;
             const movieTitle = document.createElement("h3");
-            movieTitle.setAttribute("class", "text-center")
+            movieTitle.setAttribute("class", "movieTitle")
             movieTitle.textContent = `${movie.title}`;
             const movieRating = document.createElement("span");
             movieRating.textContent = `Rating: ${movie.voteAverage}`;
@@ -285,8 +286,9 @@ class HomePage {
             });
 
             movieDiv.appendChild(movieImage);
-            movieDiv.appendChild(movieTitle);
-            movieDiv.appendChild(movieRating);
+            movieDiscriptionDiv.appendChild(movieTitle);
+            movieDiscriptionDiv.appendChild(movieRating);
+            movieDiv.appendChild(movieDiscriptionDiv);
             this.movieContainer.appendChild(movieDiv);
         })
     }
@@ -315,11 +317,12 @@ class MoviePage {
 class MovieSection {
     static renderMovie(movie) {
         MoviePage.container.innerHTML = `
-      <div class="row align-items-center">
-        <div class="col-md-4 my-4">
+      <div class="singleMovieInfo">
+        <div class="singleMovieImageDiv">
           <img id="movie-backdrop" src=${movie.posterUrl}> 
         </div>
-        <div id="movieSectionDiv" class="col-md-8">
+
+        <div id="movieSectionDiv" class="movieSectionDiv">
           <h2 id="movie-title">${movie.title}</h2>
           <p class="lead" id="genres"><strong>Genre: ${movie.genres.map(genre=>genre.name).join(", ")}</strong></p>
           <p class="lead" id="languages"><strong> Language: ${movie.language.map(e=>{return e.english_name})} </strong></p>
@@ -330,8 +333,8 @@ class MovieSection {
           <h3>Overview:</h3>
           <p class="lead" id="movie-overview"><strong>${movie.overview}</strong></p>
         </div>
+
       </div>
-      <h3 class="text-center my-3">Actors:</h3>
     `;
     }
 }
@@ -372,8 +375,11 @@ class RenderMovieActors {
         console.log(actors)
         let crew = document.createElement('div')
         crew.className="movieCrew"
-
-        MoviePage.container.append(crew)
+        let crewContainer = document.createElement('div')
+        crewContainer.className = "crewContainer";
+        crewContainer.innerHTML = `<h3 class="crewHeader">Crew</h3>`
+        crewContainer.append(crew)
+        MoviePage.container.append(crewContainer)
         
         this.getDirector(actors)
         this.getActors(actors)
@@ -405,7 +411,7 @@ class RenderMovieActors {
             SingleActorPage.run(crew.id)
         })
 
-        crewName.innerHTML = `${crew.name}`
+        crewName.innerHTML = `${crew.job ? crew.job+' : ': ""}${crew.name}`
         crewImage.src = `${this.IMAGE_URL}${crew.profile_path}`
         crewDiv.append(crewImage)
         crewDiv.append(crewName)
@@ -436,7 +442,10 @@ class renderProductionCompany{
     static async render(companies)
     {
         let comContain = document.createElement("div")
-        comContain.className="companies"
+        let comSection = document.createElement("div")
+        comSection.className="companiesSection";
+        comSection.innerHTML="<h2>Production Companies</h2>"
+        comContain.className="companies";
         companies.forEach(e=>{
             let comdiv = document.createElement("div")
             let comName = document.createElement("h3")
@@ -450,7 +459,8 @@ class renderProductionCompany{
             comContain.append(comdiv)
 
         })
-        MoviePage.container.append(comContain)
+        comSection.append(comContain)
+        MoviePage.container.append(comSection)
     }
 
 }
