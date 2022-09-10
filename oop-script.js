@@ -30,6 +30,25 @@ class APIService {
         const data = await response.json()
         RenderMovieActors.render(data)
     }
+    static async fetchPopularActors() {
+      const url = APIService._constructUrl(`person/popular`)
+      const response = await fetch(url)
+      const data = await response.json()
+      return data.results.map((movie) => new SingleActor(movie))
+  }
+
+  
+  static async fetchSingleActor(personId) {
+      const url = APIService._constructUrl(`person/${personId}`);
+      const response = await fetch(url)
+      const data = await response.json();
+      return new SingleActor(data);
+  }
+    static async fetchGenres(genreId) {
+        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=bae5a03c227c33b8d9842f4e6c132889&include_adult=false&with_genres=${genreId}`);
+        const data = await response.json()
+        return data.results.map(movie => new Movie(movie))
+      }
 
     static async fetchTrailer(movieId)
     {
@@ -39,6 +58,7 @@ class APIService {
         renderTrailer.render(data)
     }
 
+
     static async fetchSimilar(movieId){
         const url = APIService._constructUrl(`movie/${movieId.id}/recommendations`)
         const response = await fetch(url)
@@ -47,26 +67,6 @@ class APIService {
 
     }
 
-    static async fetchGenres(genreId) {
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=bae5a03c227c33b8d9842f4e6c132889&include_adult=false&with_genres=${genreId}`);
-        const data = await response.json()
-        return data.results.map(movie => new Movie(movie))
-      }
-
-      static async fetchPopularActors() {
-        const url = APIService._constructUrl(`person/popular`)
-        const response = await fetch(url)
-        const data = await response.json()
-        return data.results.map((movie) => new SingleActor(movie))
-    }
-
-    
-    static async fetchSingleActor(personId) {
-        const url = APIService._constructUrl(`person/${personId}`);
-        const response = await fetch(url)
-        const data = await response.json();
-        return new SingleActor(data);
-    }
     
     static async fetchActorCredit(personId){
         const url = APIService._constructUrl(`/person/${personId}/movie_credits`)
@@ -110,24 +110,110 @@ class APIService {
 
 
 
+class HomePage {
+    static container = document.getElementById('container');
+    static movieContainer = document.createElement('div');
+    static renderMovies(movies) {
+        this.movieContainer.innerHTML = " "
+        if (container.innerText !== "") {
+            container.innerText = "";
+          }
+          this.movieContainer.classList="homePageMovies"
+          this.container.append(this.movieContainer)
+          movies.forEach(movie => {
+            const movieDiscriptionDiv = document.createElement('div');
+            const movieDiv = document.createElement("div");
+            movieDiv.setAttribute("class", "singleHomePageMovie ")
+            const movieImage = document.createElement("img");
+            movieImage.title = movie.overview;
+            movieImage.setAttribute("class", "image-fluid clickable")
+            movieImage.src = `${movie.backdropUrl}`;
+            const movieTitle = document.createElement("h3");
+            movieTitle.setAttribute("class", "movieTitle")
+            movieTitle.textContent = `${movie.title}`;
+            const movieRating = document.createElement("span");
+            movieRating.textContent = `Rating: ${movie.voteAverage}`;
+            movieImage.addEventListener("click", function() {
+                Movies.run(movie);
+            });
+
+            movieDiv.appendChild(movieImage);
+            movieDiscriptionDiv.appendChild(movieTitle);
+            movieDiscriptionDiv.appendChild(movieRating);
+            movieDiv.appendChild(movieDiscriptionDiv);
+            this.movieContainer.appendChild(movieDiv);
+        })
+    }
+    
+  }
+  class Movie {
+      static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+      constructor(json) {
+          this.id = json.id;
+          this.title = json.title;
+          this.genres = json.genres;
+          this.releaseDate = json.release_date;
+          this.runtime = json.runtime + " minutes";
+          this.overview = json.overview;
+          this.posterPath = json.poster_path;
+          this.backdropPath = json.backdrop_path;
+          this.language = json.spoken_languages;
+          this.productionCompanies = json.production_companies;
+          this.voteAverage = json.vote_average;
+          this.voteCount = json.vote_count;
+      }
+  
+      get backdropUrl() {
+          return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
+      }
+  
+      get posterUrl(){
+          return this.posterPath ? Movie.BACKDROP_BASE_URL + this.posterPath : "";
+      }
+  }
+  class AboutPage {
+      static renderAboutPage(){
+        container.innerHTML =`
+        <div class="text-center" id="aboutPage">
+          <h3 class="my-3">Website Content:</h3>
+          <h4>Home Page</h4>
+          <p>Displays movies now playing as a default</p>
+          <p>Show movies based on the genre or filter selected from dropdown menu</p>
+          <p>Each movie card takes you to the single movie page when clicked</p>
+          <h4>Single Movie Page</h4>
+          <p>Displays movie detailes, trailer, cast, and simliar movies</p>
+          <p>Any card clicked takes you to the corresponding actor or movie page</p>
+          <h4>Actors Page</h4>
+          <p>Displays the popular actors</p>
+          <p>Each actor card takes you to single actor page when clicked</p>
+          <p>Single actor page contains the actor's information plus the movies he/she played in</p>
+          <h4>Search Bar</h4>
+          <p>Takes the given input and displays all matching movies and actors</p>
+          <p>Any card clicked takes you to the corresponding actor or movie page</p>
+          <p class="my-4 h5">This website was build with Nijyar's hyperactivity, Sarah's mood swings, Paywand's screams, and Zaynab's frustration.</p>
+          </div>`
+      }
+    }
+
+
 class ActorsPage {
     static async run() {
         if (container.innerText !== '') {
             container.innerText = ''
         }
-        
         const actorData = await APIService.fetchPopularActors()
         ActorsPage.renderActors(actorData)
-    }
-    static renderActors(actors) {
-        const div = document.createElement('div')
-        div.setAttribute('class', 'row p-4')
-        const actorsContainer = container.appendChild(div)
-        
-        actors.forEach((actor) => {
-            const actorDiv = document.createElement('div')
-            actorDiv.setAttribute(
-                'class',
+
+          }
+        static renderActors(actors) {
+            const div = document.createElement('div')
+            div.setAttribute('class', 'row p-4')
+            const actorsContainer = container.appendChild(div)
+            
+            actors.forEach((actor) => {
+                const actorDiv = document.createElement('div')
+                actorDiv.setAttribute(
+                    'class',
                 'col-lg-2 col-md-3 col-sm-4 col-6'
                 )
                 const actorImage = document.createElement('img')
@@ -149,75 +235,11 @@ class ActorsPage {
         }
     }
 
-    class AboutPage {
-        static renderAboutPage(){
-          container.innerHTML =`
-          <div class="text-center" id="aboutPage">
-            
-            <h3 class="my-3">Website Content:</h3>
-            <h4>Home Page</h4>
-            <p>Displays movies now playing as a default</p>
-            <p>Show movies based on the genre or filter selected from dropdown menu</p>
-            <p>Each movie card takes you to the single movie page when clicked</p>
-            <h4>Single Movie Page</h4>
-            <p>Displays movie detailes, trailer, cast, and simliar movies</p>
-            <p>Any card clicked takes you to the corresponding actor or movie page</p>
-            <h4>Actors Page</h4>
-            <p>Displays the popular actors</p>
-            <p>Each actor card takes you to single actor page when clicked</p>
-            <p>Single actor page contains the actor's information plus the movies he/she played in</p>
-            <h4>Search Bar</h4>
-            <p>Takes the given input and displays all matching movies and actors</p>
-            <p>Any card clicked takes you to the corresponding actor or movie page</p>
-            <p class="my-4 h5">This website was build with Nijyar's hyperactivity, Sarah's mood swings, Paywand's screams, and Zaynab's frustration.</p>
-            </div>`
-        }
-      }
-    
-      class HomePage {
-          static container = document.getElementById('container');
-          static movieContainer = document.createElement('div');
-          static renderMovies(movies) {
-              this.movieContainer.innerHTML = " "
-              if (container.innerText !== "") {
-                  container.innerText = "";
-                }
-                this.movieContainer.classList="homePageMovies"
-                this.container.append(this.movieContainer)
-              movies.forEach(movie => {
-                  const movieDiscriptionDiv = document.createElement('div');
-                  const movieDiv = document.createElement("div");
-                  movieDiv.setAttribute("class", "singleHomePageMovie ")
-                  const movieImage = document.createElement("img");
-                  movieImage.title = movie.overview;
-                  movieImage.setAttribute("class", "image-fluid clickable")
-                  movieImage.src = `${movie.backdropUrl}`;
-                  const movieTitle = document.createElement("h3");
-                  movieTitle.setAttribute("class", "movieTitle")
-                  movieTitle.textContent = `${movie.title}`;
-                  const movieRating = document.createElement("span");
-                  movieRating.textContent = `Rating: ${movie.voteAverage}`;
-                  movieImage.addEventListener("click", function() {
-                      Movies.run(movie);
-                      
-                  });
-      
-                  movieDiv.appendChild(movieImage);
-                  movieDiscriptionDiv.appendChild(movieTitle);
-                  movieDiscriptionDiv.appendChild(movieRating);
-                  movieDiv.appendChild(movieDiscriptionDiv);
-                  this.movieContainer.appendChild(movieDiv);
-              })
-          }
-          
-      }
-      
-class SingleActorPage {
+    class SingleActorPage {
         static async run(actorId){
             if (container.innerText !== '') {
                 container.innerText = ''
             }
-            console.log(actorId)
             const singleActorData = await APIService.fetchSingleActor(actorId)
             const movieCredits = await APIService.fetchActorCredit(actorId)
             SingleActorPage.renderActor(singleActorData, movieCredits)
@@ -233,12 +255,12 @@ class SingleActorPage {
               <img class="img-fluid clickable" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
               <h6>${movie.title} as <em>${movie.character}</em></h6>
             </div>`).join(" ");
-
+            
             const moviesCrew = movieCredits.moviesInCrew.map(movie => `
             <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
             <img class="img-fluid clickable" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
             <h5>${movie.title} as <em>${movie.job}</em></h5>
-           </div>`).join(" ");
+            </div>`).join(" ");
             
             ActorPage.container.innerHTML = `
             <div class="row align-items-center">
@@ -255,36 +277,55 @@ class SingleActorPage {
             </div>
             </div>
             <div class="row" style="text-align: center;">
-      <h1>Movies In Cast</h1>
-      <div class="row justify-content-center">
-        ${moviesCast}
-      </div>
-    </div>
-    <div class="row" style="text-align: center;">
-      <h1>Movies In Crew</h1>
-      <div class="row justify-content-center">
-        ${moviesCrew}
-      </div>
-    </div>`
+            <h1>Movies In Cast</h1>
+            <div class="row justify-content-center">
+            ${moviesCast}
+            </div>
+            </div>
+            <div class="row" style="text-align: center;">
+            <h1>Movies In Crew</h1>
+            <div class="row justify-content-center">
+            ${moviesCrew}
+            </div>
+            </div>`
             
             
         }
-
+        
         static async funct(e)
         {
-            console.log(e)
             Movies.run({id:e})
-            console.log('hi')
-
         }
     }
 
+    class SingleActor {
+        static PROFILE_PATH_URL = 'http://image.tmdb.org/t/p/w780';
+        constructor(json) {
+            this.name = json.name
+            this.gender = json.gender 
+            this.profilePath = json.profile_path
+            this.popularity = json.popularity
+            this.biography = json.biography
+            this.birthday = json.birthday
+            this.deathday = json.deathday
+            this.knownForDepartment = json.known_for_department
+            this.id = json.id
+        }
+        genderIdentifier(){
+            return this.gender == 1 ? "Female" : "Male"
+        }
+        actorsProfileUrl() {
+            return this.profilePath ? SingleActor.PROFILE_PATH_URL + this.profilePath : ''
+        }
+    }
+    
 class ActorPage {
         static container = document.getElementById('container');
         static renderActorPage(actor) {
             SingleActorPage.renderActor(actor);
         }
 }
+
 class MovieCredits {
     constructor(json) {
           this.moviesInCast = json.cast.slice(0, 6)
@@ -299,26 +340,6 @@ class MovieCredits {
     };
 }
 
-class SingleActor {
-    static PROFILE_PATH_URL = 'http://image.tmdb.org/t/p/w780';
-    constructor(json) {
-        this.name = json.name
-        this.gender = json.gender 
-        this.profilePath = json.profile_path
-        this.popularity = json.popularity
-        this.biography = json.biography
-        this.birthday = json.birthday
-        this.deathday = json.deathday
-        this.knownForDepartment = json.known_for_department
-        this.id = json.id
-    }
-    genderIdentifier(){
-        return this.gender == 1 ? "Female" : "Male"
-    }
-    actorsProfileUrl() {
-        return this.profilePath ? SingleActor.PROFILE_PATH_URL + this.profilePath : ''
-    }
-}
 
 
 
@@ -366,31 +387,6 @@ class MovieSection {
 }
 
 
-class Movie {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
-    constructor(json) {
-        this.id = json.id;
-        this.title = json.title;
-        this.genres = json.genres;
-        this.releaseDate = json.release_date;
-        this.runtime = json.runtime + " minutes";
-        this.overview = json.overview;
-        this.posterPath = json.poster_path;
-        this.backdropPath = json.backdrop_path;
-        this.language = json.spoken_languages;
-        this.productionCompanies = json.production_companies;
-        this.voteAverage = json.vote_average;
-        this.voteCount = json.vote_count;
-    }
-
-    get backdropUrl() {
-        return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
-    }
-
-    get posterUrl(){
-        return this.posterPath ? Movie.BACKDROP_BASE_URL + this.posterPath : "";
-    }
-}
 
 class RenderMovieActors {
 
