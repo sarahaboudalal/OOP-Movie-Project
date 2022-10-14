@@ -11,6 +11,7 @@ box-shadow: 0px 0px 8px rgb(3, 71, 67);
 overflow: hidden;
 border-top-right-radius:10px ;
 border-top-left-radius: 10px;
+/* margin-right: 10px; */
 }
 
 .actor-container > h3{
@@ -28,12 +29,16 @@ border-top-left-radius: 10px;
     overflow: hidden;
     border-radius: 20px;
     border: 5px solid rgba(22, 111, 171, 0.378);
+    margin: 10px;
 }
 
 .actor-info{
     color: white;
 }
 
+.movie-cast-div{
+    margin: 10px;
+}
 
 .movie-cast-div > img {
     color: white;
@@ -50,6 +55,9 @@ border-top-left-radius: 10px;
     height: auto;
     margin-bottom: 5px;
     color: white;
+}
+.movie-crew-div{
+    margin: 10px;
 }
 
 .movie-crew-div > img{
@@ -201,10 +209,6 @@ img#logo{
  justify-content: space-between;
  color: white;
 }
-
-/* .movieSectionDiv > *{
-  
-} */
 
 .crewContainer {
     width: 100%;
