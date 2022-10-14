@@ -533,9 +533,10 @@ class SearchPage {
         if (document.getElementById('container').innerHTML !== '') {
             document.getElementById('container').innerHTML == ' '
             
-            mov = movie.map((movie) => `<div class="actorListPageActor col-lg-2 col-md-3 col-sm-4 col-6">
-            <img class= "img-fluid clickable actorListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
-            ${movie.title} </div>`
+            mov = movie.map((movie) => `<div class="movieListPageMovie col-lg-2 col-md-3 col-sm-4 col-6">
+            <img class= "img-fluid clickable movieListPageImg"  src="${movie.posterUrl}" onclick="SearchPage.movieFunct(${movie.id})"/>
+            <h5>${movie.title}</h5> 
+            </div>`
                 )
                 .join('')
         }
