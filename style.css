@@ -76,9 +76,9 @@ border-top-left-radius: 10px;
     /* padding-bottom:2px ; */
 }
 
-#movie-backdrop {
+/* #movie-backdrop { */
     /* width: 100%; */
-}
+/* } */
 
 #container {
     background: #c2e59c;
@@ -138,15 +138,15 @@ overflow: hidden;
  
 }
 
-#actors {
+/* #actors {
     /* margin: 24px 16px 0 0; */
-}
+/* }  */
 
-img{
+/* img{ */
     /* border: solid 1px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; */
-}
+/* } */
 #movie-backdrop{
    align-self: baseline;
 }
@@ -195,9 +195,9 @@ img#logo{
  color: white;
 }
 
-.movieSectionDiv > *{
+/* .movieSectionDiv > *{
   
-}
+} */
 
 .crewContainer {
     width: 100%;
