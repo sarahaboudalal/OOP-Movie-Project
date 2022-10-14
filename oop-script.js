@@ -214,10 +214,10 @@ class ActorsPage {
                 const actorDiv = document.createElement('div')
                 actorDiv.setAttribute(
                     'class',
-                'col-lg-2 col-md-3 col-sm-4 col-6'
+                'col-lg-2 col-md-3 col-sm-4 col-6 actor-container'
                 )
                 const actorImage = document.createElement('img')
-                actorImage.setAttribute('class', 'img-fluid clickable')
+                actorImage.setAttribute('class', 'img-fluid clickable actor-image')
                 actorImage.src = `${actor.actorsProfileUrl()}`
                 
                 const actorTitle = document.createElement('h3')
