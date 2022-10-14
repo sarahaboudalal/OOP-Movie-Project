@@ -550,14 +550,14 @@ class SearchPage {
                         actor
                     ) => `<div class="actorListPageActor text-center col-lg-2 col-md-3 col-sm-4 col-6">
             <img class= "img-fluid clickable actorListPageImg" src='${actor.actorsProfileUrl()}' onclick="SearchPage.actorFunct(${actor.id})"/>
-            ${actor.name}</div>`
+            <h5>${actor.name}</h5></div>`
                 )
                 .join('')
         }
         container.innerHTML = `
-    <h2 class="text-center">Movie Results</h2>
+    <h2 class="text-center" style = "color:white">Movie Results</h2>
     <div class="row  ">${mov}</div>
-     <h2 class="text-center">Actors Results</h2>
+     <h2 class="text-center" style = "color:white">Actors Results</h2>
     <div class="row searchResults">${person}</div>`
     }
 
