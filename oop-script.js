@@ -64,7 +64,6 @@ class APIService {
         const response = await fetch(url)
         const data = await response.json()
         renderSimilar.render(data)
-
     }
 
     
@@ -83,7 +82,6 @@ class APIService {
         )
         const response = await fetch(url)
         const data = await response.json()
-        console.log(data)
         return data.results.map((movie) => new Movie(movie))
     }
     static async fetchMovieSearchResultsforActors(search) {
@@ -94,7 +92,6 @@ class APIService {
         )
         const response = await fetch(url)
         const data = await response.json()
-        console.log(data) //.results[0].known_for[0].overview
         return data.results.map((actor) => new SingleActor(actor))
     }
 
@@ -214,7 +211,7 @@ class ActorsPage {
                 const actorDiv = document.createElement('div')
                 actorDiv.setAttribute(
                     'class',
-                'col-lg-2 col-md-3 col-sm-4 col-6 actor-container'
+                'col-lg-2 col-md-3 col-sm-4 col-12 actor-container'
                 )
                 const actorImage = document.createElement('img')
                 actorImage.setAttribute('class', 'img-fluid clickable actor-image')
@@ -251,7 +248,7 @@ class ActorsPage {
         static renderActor(singleActor, movieCredits){
 
             const moviesCast = movieCredits.moviesInCast.map(movie => `
-            <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
+            <div class="movie-card col-md-2 col-sm-4 col-12 my-3 movie-cast-div">
               <img class="img-fluid clickable" src=${movieCredits.castPosterUrl(movieCredits.moviesInCast.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
               <h6>${movie.title} as <em>${movie.character}</em></h6>
             </div>`).join(" ");
@@ -265,9 +262,9 @@ class ActorsPage {
             ActorPage.container.innerHTML = `
             <div class="row align-items-center">
             <div class="col-md-4 my-4">
-            <img class="img-fluid" src=${singleActor.actorsProfileUrl()}> 
+            <img class="img-fluid single-actor-img" src=${singleActor.actorsProfileUrl()}> 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 actor-info">
             <h1>${singleActor.name}</h1>
             <p class="lead"><strong>Job:</strong> ${singleActor.knownForDepartment}</p>
             <p class="lead"><strong>Birthday:</strong> ${singleActor.birthday}</p>
@@ -277,13 +274,13 @@ class ActorsPage {
             </div>
             </div>
             <div class="row" style="text-align: center;">
-            <h1>Movies In Cast</h1>
+            <h1 class="movie-in-cast">Movies In Cast</h1>
             <div class="row justify-content-center">
             ${moviesCast}
             </div>
             </div>
             <div class="row" style="text-align: center;">
-            <h1>Movies In Crew</h1>
+            <h1 class="movie-in-crew">Movies In Crew</h1>
             <div class="row justify-content-center">
             ${moviesCrew}
             </div>
@@ -364,12 +361,12 @@ class MoviePage {
 class MovieSection {
     static renderMovie(movie) {
         MoviePage.container.innerHTML = `
-      <div class="singleMovieInfo">
-        <div class="singleMovieImageDiv">
-          <img id="movie-backdrop" src=${movie.posterUrl}> 
+      <div class="singleMovieInfo" class="row align-items-center">
+        <div class="singleMovieImageDiv col-md-4 col-12">
+          <img id="movie-backdrop" class="img-fluid"src=${movie.posterUrl}> 
         </div>
 
-        <div id="movieSectionDiv" class="movieSectionDiv">
+        <div id="movieSectionDiv" class="movieSectionDiv col-md-8 col-12">
           <h2 id="movie-title">${movie.title}</h2>
           <p class="lead" id="genres"><strong>Genre: ${movie.genres.map(genre=>genre.name).join(", ")}</strong></p>
           <p class="lead" id="languages"><strong> Language: ${movie.language.map(e=>{return e.english_name})} </strong></p>
@@ -394,11 +391,10 @@ class RenderMovieActors {
 
     static async render(actors)
     {   
-        console.log(actors)
         let crew = document.createElement('div')
         crew.className="movieCrew"
         let crewContainer = document.createElement('div')
-        crewContainer.className = "crewContainer";
+        crewContainer.className = "crewContainer row";
         crewContainer.innerHTML = `<h3 class="crewHeader">Crew</h3>`
         crewContainer.append(crew)
         MoviePage.container.append(crewContainer)
@@ -428,6 +424,7 @@ class RenderMovieActors {
         let crewImage = document.createElement('img')
         let crewName = document.createElement('span')
         crewImage.className= "clickable"
+        crewDiv.className = "col-md-2 col-6"
         
         crewImage.addEventListener('click',()=>{
             SingleActorPage.run(crew.id)
@@ -491,7 +488,6 @@ class renderSimilar{
     static IMG_URL = `http://image.tmdb.org/t/p/w780/`
 
     static async render(similar){
-        console.log(similar)
 
         let relatedMoviesConatainer = document.createElement('div')
         relatedMoviesConatainer.innerHTML= `<h2>Similar Movies</h2>`
@@ -570,7 +566,6 @@ class SearchPage {
     }
     static async actorFunct(e)
     {
-        console.log(e)
         SingleActorPage.run(e)
     }
 }
