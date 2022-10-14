@@ -62,6 +62,25 @@ border-top-left-radius: 10px;
     margin-bottom: 5px;
     color: white;
 }
+
+.movie-crew-div > img{
+    color: white;
+    box-shadow: 0px 0px 8px rgb(3, 71, 67);
+    overflow: hidden;
+    border-top-right-radius:10px ;
+    border-top-left-radius: 10px;
+}
+
+.movie-crew-div > h5 {
+    padding: 10px;
+    background-color: rgb(16, 67, 83);
+    border-bottom-right-radius:10px ;
+    border-bottom-left-radius: 10px;
+    height: auto;
+    margin-bottom: 5px;
+    color: white;
+}
+
 .movie-in-cast{
     color: white;
 }
@@ -174,16 +193,16 @@ img#logo{
    padding: 20px 0px;
 }  
 
-.singleMovieImageDiv{
-    width: 400px;
+/* .singleMovieImageDiv{
+   
+    
+} */
+.singleMovieImageDiv > img{
+    width: auto;
     overflow: hidden;
+
     border-radius: 20px;
     border: 5px solid rgba(22, 111, 171, 0.378);
-    
-}
-.singleMovieImageDiv > img{
-    width: 100%;
-    
 }
 
 .movieSectionDiv{
@@ -239,11 +258,11 @@ padding-top: 5px;
 }
 
 .movieCrew > div > img {
-    width:100%; 
-   
+    width:160px;
+    /* border-radius: 10px; */
+    /* overflow: auto; */
 }
 .movieCrew > div > span {
-    
     padding: 10px 20px;
 }
 

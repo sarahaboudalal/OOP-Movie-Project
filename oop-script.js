@@ -254,7 +254,7 @@ class ActorsPage {
             </div>`).join(" ");
             
             const moviesCrew = movieCredits.moviesInCrew.map(movie => `
-            <div class="movie-card col-md-2 col-sm-4 col-12 my-3">
+            <div class="movie-card col-md-2 col-sm-4 col-12 my-3 movie-crew-div">
             <img class="img-fluid clickable" src=${movieCredits.crewPosterUrl(movieCredits.moviesInCrew.indexOf(movie))} alt="${movie.title}" onclick="SingleActorPage.funct(${movie.id})">
             <h5>${movie.title} as <em>${movie.job}</em></h5>
             </div>`).join(" ");
