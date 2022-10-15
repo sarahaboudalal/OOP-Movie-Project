@@ -112,7 +112,7 @@ border-top-left-radius: 10px;
     grid-template-columns: 1fr 1fr 1fr;
     overflow: hidden;
     gap: 20px;
-    width: 1400px;
+    /* width: 1400px; */
     padding: 10px;
 
 }
@@ -191,10 +191,10 @@ img#logo{
 }
 
 .movieSectionDiv{
- width:800px;
+ /* width:800px; */
  padding : 0px 30px;
- display: flex;
- flex-direction: column;
+ /* display: flex;
+ flex-direction: column; */
  justify-content: space-between;
  color: white;
 }
@@ -213,8 +213,8 @@ padding-top: 5px;
 }
 
 .movieCrew {
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     gap: 55px;
     padding: 25px 0;
 
@@ -224,12 +224,13 @@ padding-top: 5px;
 .movieCrew > div{
     background-color: rgb(23, 110, 136);
     color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 10px;
+     /* display: flex;
+    flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 100%;
     overflow: hidden;
-    width: 160px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px black;
     text-align: center;
 }
@@ -239,7 +240,9 @@ padding-top: 5px;
 }
 
 .movieCrew > div > img {
-    width:160px;
+    width:100%;
+    overflow: hidden;
+    /* border-radius: 10px;  */
    
 }
 .movieCrew > div > span {
@@ -247,12 +250,11 @@ padding-top: 5px;
 }
 
 .videoSection {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     padding: 20px;
-    flex-direction: column;
-
+    /* flex-direction: column; */
 }
 .videoSection > h2 {
 color: rgb(255, 255, 255);
@@ -350,11 +352,9 @@ padding-top: 5px;
 {
     display: flex;
     flex-direction: column;
-    
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 0px 10px black;
-    
     width: 240px;
 }
 .relatedMoviesContainer >div >div> img
@@ -411,7 +411,7 @@ padding-top: 5px;
 
 .footer{
     display: grid;
-    grid-template-columns: 350px 350px 350px 350px;
+    /* grid-template-columns: 1fr, 1fr, 1fr, 1fr; */
     grid-column: 1fr 1fr;
     justify-content: center;
 }
@@ -441,7 +441,7 @@ padding-top: 5px;
 @media only screen and (max-width: 1300px) {
     .homePageMovies{
         grid-template-columns: 1fr 1fr ;
-        width: 600px;
+        /* width: 600px; */
     }
 
     .footer {
@@ -464,7 +464,7 @@ padding-top: 5px;
 @media only screen and (max-width: 700px) {
     .homePageMovies{
         grid-template-columns: 1fr ;
-        width: 350px;
+        /* width: 350px; */
     }
     
 }

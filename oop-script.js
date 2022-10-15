@@ -361,7 +361,7 @@ class MoviePage {
 class MovieSection {
     static renderMovie(movie) {
         MoviePage.container.innerHTML = `
-      <div class="singleMovieInfo" class="row align-items-center">
+      <div class="singleMovieInfo row align-items-center">
         <div class="singleMovieImageDiv col-md-4 col-12">
           <img id="movie-backdrop" class="img-fluid"src=${movie.posterUrl}> 
         </div>
@@ -392,9 +392,9 @@ class RenderMovieActors {
     static async render(actors)
     {   
         let crew = document.createElement('div')
-        crew.className="movieCrew"
+        crew.className="movieCrew col-md-2 col-6"
         let crewContainer = document.createElement('div')
-        crewContainer.className = "crewContainer row";
+        crewContainer.className = "crewContainer row align-items-center";
         crewContainer.innerHTML = `<h3 class="crewHeader">Crew</h3>`
         crewContainer.append(crew)
         MoviePage.container.append(crewContainer)
@@ -421,19 +421,21 @@ class RenderMovieActors {
     }
     static async renderAct(crew) {
         let crewDiv = document.createElement('div')
+        // let crewSubDiv = document.createElement('div')
         let crewImage = document.createElement('img')
         let crewName = document.createElement('span')
-        crewImage.className= "clickable"
-        crewDiv.className = "col-md-2 col-6"
-        
+        crewImage.className= "clickable fluid"
+       
+
         crewImage.addEventListener('click',()=>{
             SingleActorPage.run(crew.id)
         })
 
         crewName.innerHTML = `${crew.job ? crew.job+' : ': ""}${crew.name}`
         crewImage.src = `${this.IMAGE_URL}${crew.profile_path}`
-        crewDiv.append(crewImage)
-        crewDiv.append(crewName)
+        crewDiv.appendChild(crewImage)
+        crewDiv.appendChild(crewName)
+        // crewDiv.appendChild(crewSubDiv)
 
         document.querySelector('.movieCrew').append(crewDiv)
     }
@@ -445,11 +447,14 @@ class renderTrailer{
     {
         let url = video.results.map(e => e.key)
         let videoSection = document.createElement('div');
+        const subVideoDiv = document.createElement('div')
         let videoFrame = document.createElement('iframe');
         videoFrame.src=`https://www.youtube.com/embed/${url[1]}`
-        videoSection.className="videoSection";
+        videoSection.className="videoSection row";
+        subVideoDiv.className = "col-12"
         videoSection.innerHTML=`<h2> Trailer </h2>`
-        videoSection.append(videoFrame)
+        subVideoDiv.appendChild(videoFrame)
+        videoSection.appendChild(subVideoDiv)
         MoviePage.container.append(videoSection)
 
         
