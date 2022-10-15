@@ -260,11 +260,11 @@ class ActorsPage {
             </div>`).join(" ");
             
             ActorPage.container.innerHTML = `
-            <div class="row align-items-center">
-            <div class="col-md-4 my-4">
+            <div class="row actorImgContainer">
+            <div class="col-md-4 col-9 my-4">
             <img class="img-fluid single-actor-img" src=${singleActor.actorsProfileUrl()}> 
             </div>
-            <div class="col-md-8 actor-info">
+            <div class="col-md-8 col-9 actor-info">
             <h1>${singleActor.name}</h1>
             <p class="lead"><strong>Job:</strong> ${singleActor.knownForDepartment}</p>
             <p class="lead"><strong>Birthday:</strong> ${singleActor.birthday}</p>
@@ -361,12 +361,12 @@ class MoviePage {
 class MovieSection {
     static renderMovie(movie) {
         MoviePage.container.innerHTML = `
-      <div class="singleMovieInfo row align-items-center">
-        <div class="singleMovieImageDiv col-md-4 col-12">
+      <div class="singleMovieInfo row">
+        <div class="singleMovieImageDiv col-md-4 col-9">
           <img id="movie-backdrop" class="img-fluid"src=${movie.posterUrl}> 
         </div>
 
-        <div id="movieSectionDiv" class="movieSectionDiv col-md-8 col-12">
+        <div id="movieSectionDiv" class="movieSectionDiv col-md-8 col-9">
           <h2 id="movie-title">${movie.title}</h2>
           <p class="lead" id="genres"><strong>Genre: ${movie.genres.map(genre=>genre.name).join(", ")}</strong></p>
           <p class="lead" id="languages"><strong> Language: ${movie.language.map(e=>{return e.english_name})} </strong></p>
@@ -391,12 +391,12 @@ class RenderMovieActors {
 
     static async render(actors)
     {   
-        let crew = document.createElement('div')
-        crew.className="movieCrew col-md-2 col-6"
+        // let crew = document.createElement('div')
+        // crew.className="movieCrew"
         let crewContainer = document.createElement('div')
         crewContainer.className = "crewContainer row align-items-center";
         crewContainer.innerHTML = `<h3 class="crewHeader">Crew</h3>`
-        crewContainer.append(crew)
+        // crewContainer.append(crew)
         MoviePage.container.append(crewContainer)
         
         this.getDirector(actors)
@@ -421,12 +421,10 @@ class RenderMovieActors {
     }
     static async renderAct(crew) {
         let crewDiv = document.createElement('div')
-        // let crewSubDiv = document.createElement('div')
         let crewImage = document.createElement('img')
         let crewName = document.createElement('span')
-        crewImage.className= "clickable fluid"
-       
-
+        crewImage.className= "clickable"
+        crewDiv.className = "actorCrewList col-md-2 col-5"
         crewImage.addEventListener('click',()=>{
             SingleActorPage.run(crew.id)
         })
@@ -435,9 +433,8 @@ class RenderMovieActors {
         crewImage.src = `${this.IMAGE_URL}${crew.profile_path}`
         crewDiv.appendChild(crewImage)
         crewDiv.appendChild(crewName)
-        // crewDiv.appendChild(crewSubDiv)
 
-        document.querySelector('.movieCrew').append(crewDiv)
+        document.querySelector('.crewContainer').append(crewDiv)
     }
 
 }
@@ -453,6 +450,9 @@ class renderTrailer{
         videoSection.className="videoSection row";
         subVideoDiv.className = "col-12"
         videoSection.innerHTML=`<h2> Trailer </h2>`
+        // videoFrame.allow = 'fullscreen'
+        videoFrame.height = '400px'
+        videoFrame.width = '600px'
         subVideoDiv.appendChild(videoFrame)
         videoSection.appendChild(subVideoDiv)
         MoviePage.container.append(videoSection)
